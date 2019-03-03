@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/java']
+        }
+        resources {
+            srcDirs = ['src/resources']
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url "http://first.wpi.edu/FRC/roborio/maven/release"
+    }
+}
+
+application {
+    mainClassName = 'us.shsrobotics.ledcode.Program'
+}
+
+dependencies {
+    implementation 'edu.wpi.first.ntcore:ntcore-java:2019.3.1'
+    implementation 'edu.wpi.first.ntcore:ntcore-jni:2019.3.1'
+    implementation 'edu.wpi.first.wpiutil:wpiutil-java:2019.3.1'
+    //implementation project('rpi-ws281x-java')
+    
+    compile 'org.apache.logging.log4j:log4j-api:2.10.0'
+    runtime 'org.apache.logging.log4j:log4j-core:2.10.0'
+    implementation files('libs/rpi-ws281x-java-2.0.0-SNAPSHOT.jar')
+}

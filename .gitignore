@@ -1,0 +1,14 @@
+# Directories
+.gradle
+.idea
+.settings
+.vscode
+bin
+build
+libs
+out
+
+# Files
+.classpath
+.project
+*.iml
