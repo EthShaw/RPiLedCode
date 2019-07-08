@@ -1,12 +1,8 @@
 package us.shsrobotics.ledcode;
 
-import java.lang.management.ManagementFactory;
-
-import com.github.mbelling.ws281x.Color;
 import com.github.mbelling.ws281x.LedStrip;
 import com.github.mbelling.ws281x.LedStripType;
 import com.github.mbelling.ws281x.Ws281xLedStrip;
-import java.util.Map;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
