@@ -31,6 +31,12 @@ class Program {
                 return new SuperRandomScript();
             case "MorseCode":
                 return new MorseCode(argument);
+            case "ChristmasColorWaves":
+                return new ChristmasColorWaves();
+            case "Fire":
+                return new FireScript();
+            case "WholeMultiColor":
+                return new WholeMultiColorScript();
             case "MultiColor":
             default:
                 // If nothing is specified, just return the MultiColorScript
