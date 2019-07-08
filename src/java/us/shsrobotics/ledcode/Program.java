@@ -18,22 +18,24 @@ class Program {
     static LedScript script = null;
 
     public static LedScript getLedScript(String name, String argument) {
-        switch (name) {
-            case "ColorWaves":
+        switch (name.toLowerCase()) {
+            // Because to .toLowerCase the name, all of the following
+            // MUST be in lowercase for them to ever be picked.
+            case "colorwaves":
                 return new ColorWaves();
-            case "Binary":
+            case "binary":
                 return new BinaryScript(argument);
-            case "SuperRandomScript":
+            case "superrandomscript":
                 return new SuperRandomScript();
-            case "MorseCode":
+            case "morsecode":
                 return new MorseCode(argument);
-            case "ChristmasColorWaves":
+            case "christmascolorwaves":
                 return new ChristmasColorWaves();
-            case "Fire":
+            case "fire":
                 return new FireScript();
-            case "WholeMultiColor":
+            case "wholemulticolor":
                 return new WholeMultiColorScript();
-            case "MultiColor":
+            case "multicolor":
             default:
                 // If nothing is specified, just return the MultiColorScript
                 return new MultiColorScript();
@@ -51,8 +53,8 @@ class Program {
         nt.startClientTeam(5724);
         
         ledTable = nt.getTable("LedInfo");//.getEntry("StationNum")
-        currentScriptEntry = nt.getEntry("CurrentScript");
-        scriptArgEntry = nt.getEntry("ScriptArgument");
+        currentScriptEntry = ledTable.getEntry("CurrentScript");
+        scriptArgEntry = ledTable.getEntry("ScriptArgument");
 
         while (true) {
             String scriptName;
