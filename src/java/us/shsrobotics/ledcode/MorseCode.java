@@ -10,11 +10,19 @@ import com.github.mbelling.ws281x.LedStrip;
 public class MorseCode extends LedScript
 {
     private LedStrip _LedStrip;
-
     private Map<Character, String> _CodeMap;
+    private String text;// = "WE ARE SPARTANS 5724";
+    private ArrayList<Boolean> code = new ArrayList<Boolean>();
 
-    public MorseCode() throws Exception
+    public MorseCode(String msg)
     {
+        if (msg == null) {
+            msg = "";
+        }
+
+        // Pause in between each replay of the message
+        text = msg.toUpperCase() + "    ";
+
         _CodeMap = new HashMap<Character, String>() {{
             put('A', ".-");
             put('B', "-...");
@@ -54,10 +62,6 @@ public class MorseCode extends LedScript
             put('9', "----.");
         }};
     }
-
-    private String text = "WE ARE SPARTANS 5724";
-
-    private ArrayList<Boolean> code = new ArrayList<Boolean>();
 
     private void GenerateMorseCode()
     {
@@ -108,18 +112,11 @@ public class MorseCode extends LedScript
         }
     }
 
-
-
     @Override
     public void Setup(LedStrip strip)
     {
-        SetDelay(200);
-
-        // Pause in between each replay of the message
-        text = text + "    ";
-
         _LedStrip = strip;
-
+        SetDelay(200);
         GenerateMorseCode();
     }
 

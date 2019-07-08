@@ -10,11 +10,19 @@ import com.github.mbelling.ws281x.LedStrip;
 public class BinaryScript extends LedScript
 {
     private LedStrip _LedStrip;
-
     private Map<Character, String> _CodeMap;
+    private String text;
+    private ArrayList<Boolean> code = new ArrayList<Boolean>();
 
-    public BinaryScript() throws Exception
+    public BinaryScript(String msg)
     {
+        if (msg == null) {
+            msg = "";
+        }
+
+        // Pause in between each replay of the message
+        text = msg + "    ";
+        
         _CodeMap = new HashMap<Character, String>() {{
             put('A', "01000001");
             put('B', "01000010");
@@ -56,11 +64,7 @@ public class BinaryScript extends LedScript
         }};
     }
 
-    private String text = "WE ARE SPARTANS 5724";
-
-    private ArrayList<Boolean> code = new ArrayList<Boolean>();
-
-    private void GenerateMorseCode()
+    private void GenerateBinaryCode()
     {
         char[] textChars = text.toUpperCase().toCharArray();
 
@@ -85,19 +89,12 @@ public class BinaryScript extends LedScript
         }
     }
 
-
-
     @Override
     public void Setup(LedStrip strip)
     {
-        SetDelay(200);
-
-        // Pause in between each replay of the message
-        text = text + "    ";
-
         _LedStrip = strip;
-
-        GenerateMorseCode();
+        SetDelay(200);
+        GenerateBinaryCode();
     }
 
     private ArrayList<Integer> _Display = new ArrayList<Integer>();
