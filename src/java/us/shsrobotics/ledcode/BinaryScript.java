@@ -7,21 +7,44 @@ import java.util.Map;
 import com.github.mbelling.ws281x.Color;
 import com.github.mbelling.ws281x.LedStrip;
 
+import org.json.JSONObject;
+
 public class BinaryScript extends LedScript
 {
     private LedStrip _LedStrip;
     private Map<Character, String> _CodeMap;
     private String text;
+    private boolean wholeStripMode;
     private ArrayList<Boolean> code = new ArrayList<Boolean>();
+    private static final int MAROON_HEX = 0x800000;
+    private static final int SILVER_HEX = 0xC0C0C0;
+    private static final Color MAROON_COLOR = new Color(0x800000);
+    private static final Color SILVER_COLOR = new Color(0xC0C0C0);
 
-    public BinaryScript(String msg)
+    public BinaryScript(String json)
     {
-        if (msg == null) {
-            msg = "";
+        if (json == null) {
+            json = "";
         }
 
-        // Pause in between each replay of the message
-        text = msg + "    ";
+        JSONObject args = ArgumentHelper.parseArguments(json);
+
+        if (args != null && args.has("msg")) {
+            // Spaces for a pause in between each replay of the message
+            text = args.get("msg").toString() + "    ";
+        } else {
+            text = "   ";
+        }
+        
+        if (args != null && args.has("mode")) {
+            String mode = args.get("mode").toString();
+
+            if (mode.equalsIgnoreCase("WholeStrip")) {
+                wholeStripMode = true;
+            } else {
+                wholeStripMode = false;
+            }
+        }
         
         _CodeMap = new HashMap<Character, String>() {{
             put('A', "01000001");
@@ -93,38 +116,77 @@ public class BinaryScript extends LedScript
     public void Setup(LedStrip strip)
     {
         _LedStrip = strip;
-        SetDelay(200);
+        if (wholeStripMode) {
+            SetDelay(20);
+        } else {
+            SetDelay(200);
+        }
         GenerateBinaryCode();
     }
 
-    private ArrayList<Integer> _Display = new ArrayList<Integer>();
+    private ArrayList<Color> _Display = new ArrayList<Color>();
     private boolean _IsSilver = false;
     private int _Pos = 0;
+    private int _Time = 0;
+    private boolean _Restarted;
 
     @Override
     public void Update()
     {
         _LedStrip.setStrip(new Color(0x000000));
 
-        if (code.get(_Pos))
-            _Display.add(0, _IsSilver ? 0xC0C0C0 : 0x800000);
-        else
-            _Display.add(0, 0x000000);
+        if (wholeStripMode) {
+            _Time++;
+
+            int mod = _Time % 21;
+
+            if (_Restarted) {
+                double brightness = Math.max(0, (1.0D - (Math.abs(mod - 10) / 10.0D)) / 1.5 - 0.333);
+
+                Color maroon = new Color(ColorUtils.ApplyBrightness(MAROON_HEX, brightness));
+                Color silver = new Color(ColorUtils.ApplyBrightness(SILVER_HEX, brightness));
+
+                for (int i = 0; i < 150; i++) {
+                    _LedStrip.setPixel(i, i % 2 == 0 ? maroon : silver);
+                }
+            } else {
+                double brightness = Math.max(0, (1.0D - (Math.abs(mod - 10) / 10.0D)) / 1.5 - 0.333);
+
+                if (code.get(_Pos)) {
+                    // Red is 1
+                    _LedStrip.setStrip(new Color(ColorUtils.ApplyBrightness(MAROON_HEX, brightness)));
+                } else {
+                    // Silver is 0
+                    _LedStrip.setStrip(new Color(ColorUtils.ApplyBrightness(SILVER_HEX, brightness)));
+                }
+            }
+
+            if (mod == 0) {
+                _Restarted = false;
+                _Pos++;
+            }
+        } else {
+            if (code.get(_Pos))
+                _Display.add(0, _IsSilver ? SILVER_COLOR : MAROON_COLOR);
+            else
+                _Display.add(0, null);
 
 
-        while (_Display.size() > 150)
-            _Display.remove(_Display.size() - 1);
+            while (_Display.size() > 150)
+                _Display.remove(_Display.size() - 1);
 
 
-        for (int i = 0; i < _Display.size(); i++)
-            if (_Display.get(i) != 0)
-                _LedStrip.setPixel(i, new Color(_Display.get(i)));
-
-        _Pos++;
+            for (int i = 0; i < _Display.size(); i++)
+                if (_Display.get(i) != null)
+                    _LedStrip.setPixel(i, _Display.get(i));
+            
+            _Pos++;
+        }
 
         if (_Pos >= code.size())
         {
             _Pos = 0;
+            _Restarted = true;
             _IsSilver = !_IsSilver;
         }
     }

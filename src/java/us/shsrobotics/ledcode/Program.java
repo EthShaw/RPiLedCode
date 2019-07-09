@@ -25,6 +25,10 @@ class Program {
                 return new ColorWaves();
             case "binary":
                 return new BinaryScript(argument);
+            case "fillin":
+                return new BinaryScript(argument);
+            case "teamnumber":
+                return new TeamNumberScript();
             case "superrandomscript":
                 return new SuperRandomScript();
             case "morsecode":
@@ -35,6 +39,10 @@ class Program {
                 return new FireScript();
             case "wholemulticolor":
                 return new WholeMultiColorScript();
+            case "clear":
+                return new ClearScript();
+            case "numbered":
+                return new NumberedScript(argument);
             case "multicolor":
             default:
                 // If nothing is specified, just return the MultiColorScript
@@ -61,7 +69,7 @@ class Program {
             String scriptArg;
 
             if (!nt.isConnected()) {
-                scriptName = "ColorWaves";
+                scriptName = "FillIn";
                 scriptArg = "";
             } else {
                 scriptName = currentScriptEntry.getString("");
@@ -77,8 +85,13 @@ class Program {
                 lastScriptName = scriptName;
                 lastScriptArg = scriptArg;
 
-                script = getLedScript(lastScriptName, scriptArg);
-                script.Setup(strip);
+                try {
+                    script = getLedScript(lastScriptName, scriptArg);
+                    script.Setup(strip);
+                } catch(Exception e) {
+                    Thread.sleep(200);
+                    continue;
+                }
             }
 
 
