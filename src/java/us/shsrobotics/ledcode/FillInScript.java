@@ -9,19 +9,20 @@ import com.github.mbelling.ws281x.LedStrip;
 public class FillInScript extends LedScript
 {
     private LedStrip _Lights;
-    private Color BG_COLOR = new Color(0x00000F);
-    private Color FG_COLOR = new Color(ColorUtils.ApplyBrightness(0xFFFFFF, 0.35));
+    private Color BG_COLOR = new Color(0x000007);
+    private Color FG_COLOR = new Color(ColorUtils.ApplyBrightness(0xFFFFFF, 0.4));
     private boolean[] Pixels;
     private List<Integer> unfilledPixels;
+    private static final int LENGTH = 150;
 
     @Override
     public void Setup(LedStrip strip)
     {
-        SetDelay(500);
+        SetDelay(250);
         _Lights = strip;
-        Pixels = new boolean[150];
+        Pixels = new boolean[LENGTH];
         
-        unfilledPixels = new ArrayList<Integer>(150);
+        unfilledPixels = new ArrayList<Integer>(LENGTH);
     }
 
     @Override
@@ -29,11 +30,11 @@ public class FillInScript extends LedScript
     {
 
         if (unfilledPixels.size() == 0) {
-            for (int i = 0; i < 150; i++) {
+            for (int i = 0; i < Pixels.length; i++) {
                 unfilledPixels.add(i);
             }
 
-            for (int i = 0; i < 1000; i++) {
+            for (int i = 0; i < Pixels.length; i++) {
                 Pixels[i] = false;
             }
         } else {

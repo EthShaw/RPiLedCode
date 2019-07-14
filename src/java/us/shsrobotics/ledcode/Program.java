@@ -26,7 +26,7 @@ class Program {
             case "binary":
                 return new BinaryScript(argument);
             case "fillin":
-                return new BinaryScript(argument);
+                return new FillInScript();
             case "teamnumber":
                 return new TeamNumberScript();
             case "superrandomscript":
