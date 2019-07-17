@@ -33,6 +33,8 @@ class Program {
                 return new SuperRandomScript();
             case "morsecode":
                 return new MorseCode(argument);
+            case "randomchristmas":
+                return new RandomChristmasScript();
             case "christmascolorwaves":
                 return new ChristmasColorWaves();
             case "fire":

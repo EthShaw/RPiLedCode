@@ -35,7 +35,7 @@ public class ChristmasColorWaves extends TimedLedScript
             // Wavelength of 25, min of 0.35, max of 1 (created the wave on
             // Desmos to visualize it and then copied the function)
             //double saturation = Math.sin((2 * Math.PI) / 25 * x) * (13D / 40D) + (27D / 40D);
-            double saturation = Math.abs(Math.sin((2 * Math.PI) / 24 * x)) * (13D / 40D) + (27D / 40D);
+            //double saturation = Math.abs(Math.sin((2 * Math.PI) / 24 * x)) * (13D / 40D) + (27D / 40D);
 
             // Used Desmos to create this function as well. Alternates between
             // red and green whenever the saturation dips to its lowest
@@ -44,23 +44,11 @@ public class ChristmasColorWaves extends TimedLedScript
 
             _Lights.setPixel(i, new Color(ColorUtils.ApplyBrightness(
                 ColorUtils.HSL2RGB(hue,
-                saturation,
+                1,//saturation,
                 0.5),
-                0.35 * saturation)));
+                0.35/* * saturation*/)));
         }
 
         offsetWave++;
-        //offsetWave %= 150;
-
-        /*_Display.Insert(0, Spectrum(offset));
-        offset += 4;
-
-        while (_Display.Count > 150)
-            _Display.RemoveAt(_Display.Count - 1);
-
-        offset %= SPECTRUM_LENGTH;
-
-        for (int j = 0; j < _Display.Count; j++)
-            _Lights.SetLed(j, _Display[j]);*/
     }
 }
