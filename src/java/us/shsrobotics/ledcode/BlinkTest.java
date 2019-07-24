@@ -5,21 +5,18 @@ import java.util.ArrayList;
 
 import com.github.mbelling.ws281x.LedStrip;
 
-public class BlinkTest extends TimedLedScript
+import us.shsrobotics.ledcode.utils.ILedGroup;
+
+public class BlinkTest extends LedScript
 {
-    private LedStrip _Lights;
+    private ILedGroup _Lights;
 
     @Override
-    public void Setup(LedStrip strip)
+    public void Setup(ILedGroup strip)
     {
         SetDelay(16 * 2);
-        
-        //if (Arguments.length > 0)
-        //    if (!Integer.TryParse(Arguments[0], out _TimeToRun))
-        //        _TimeToRun = TIME_INFINITE;
-        _TimeToRun = 30000;
 
-        _Lights = strip;// new LedArray(strip, 0, 150);
+        _Lights = strip;
     }
 
     private static final double tau = Math.PI * 2;
@@ -65,11 +62,6 @@ public class BlinkTest extends TimedLedScript
         return ColorUtils.FromRGB(r, g, b);
     }
 
-    private int Rainbow(int idx)
-    {
-        return ColorUtils.HSL2RGB((double)idx / SPECTRUM_LENGTH, 1, 0.5);
-    }
-
     int offset = 0;
 
     ArrayList<Integer> _Display = new ArrayList<Integer>();
@@ -79,8 +71,6 @@ public class BlinkTest extends TimedLedScript
     @Override
     public void Update()
     {
-        super.Update();
-        
         double adjustment = ADJUST_BRIGHTNESS ? ((25 - (offset % 25)) % 25) / 38.4615385D + 0.35D : 1.0;
 
         _Lights.setStrip(new Color(
@@ -90,16 +80,5 @@ public class BlinkTest extends TimedLedScript
 
         offset++;
         offset %= 150;
-
-        /*_Display.Insert(0, Spectrum(offset));
-        offset += 4;
-
-        while (_Display.Count > 150)
-            _Display.RemoveAt(_Display.Count - 1);
-
-        offset %= SPECTRUM_LENGTH;
-
-        for (int j = 0; j < _Display.Count; j++)
-            _Lights.SetLed(j, _Display[j]);*/
     }
 }

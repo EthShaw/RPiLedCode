@@ -1,14 +1,15 @@
 package us.shsrobotics.ledcode;
 
 import com.github.mbelling.ws281x.Color;
-import com.github.mbelling.ws281x.LedStrip;
+
+import us.shsrobotics.ledcode.utils.ILedGroup;
 
 public class ClearScript extends LedScript
 {
-    private LedStrip _LedStrip;
+    private ILedGroup _LedStrip;
 
     @Override
-    public void Setup(LedStrip strip)
+    public void Setup(ILedGroup strip)
     {
         SetDelay(200);
         _LedStrip = strip;

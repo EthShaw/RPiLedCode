@@ -5,13 +5,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.github.mbelling.ws281x.Color;
-import com.github.mbelling.ws281x.LedStrip;
 
 import org.json.JSONObject;
 
+import us.shsrobotics.ledcode.utils.ILedGroup;
+
 public class BinaryScript extends LedScript
 {
-    private LedStrip _LedStrip;
+    private ILedGroup _LedStrip;
     private Map<Character, String> _CodeMap;
     private String text;
     private boolean wholeStripMode;
@@ -113,7 +114,7 @@ public class BinaryScript extends LedScript
     }
 
     @Override
-    public void Setup(LedStrip strip)
+    public void Setup(ILedGroup strip)
     {
         _LedStrip = strip;
         if (wholeStripMode) {

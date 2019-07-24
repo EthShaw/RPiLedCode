@@ -2,6 +2,8 @@ package us.shsrobotics.ledcode;
 
 import com.github.mbelling.ws281x.LedStrip;
 
+import us.shsrobotics.ledcode.utils.ILedGroup;
+
 public abstract class LedScript
 {
     protected boolean IsFinished;
@@ -38,7 +40,7 @@ public abstract class LedScript
         return _Delay;
     }
 
-    public abstract void Setup(LedStrip parent);
+    public abstract void Setup(ILedGroup parent);
     public abstract void Update();
 
     public void Cleanup()

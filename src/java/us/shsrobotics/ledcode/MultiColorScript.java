@@ -1,16 +1,17 @@
 package us.shsrobotics.ledcode;
 
-import com.github.mbelling.ws281x.Color;
 import java.util.ArrayList;
 
-import com.github.mbelling.ws281x.LedStrip;
+import com.github.mbelling.ws281x.Color;
+
+import us.shsrobotics.ledcode.utils.ILedGroup;
 
 public class MultiColorScript extends TimedLedScript
 {
-    private LedStrip _Lights;
+    private ILedGroup _Lights;
 
     @Override
-    public void Setup(LedStrip strip)
+    public void Setup(ILedGroup strip)
     {
         SetDelay(16);
         

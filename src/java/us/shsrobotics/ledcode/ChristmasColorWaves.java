@@ -2,23 +2,18 @@ package us.shsrobotics.ledcode;
 
 import com.github.mbelling.ws281x.Color;
 
-import com.github.mbelling.ws281x.LedStrip;
+import us.shsrobotics.ledcode.utils.ILedGroup;
 
 public class ChristmasColorWaves extends TimedLedScript
 {
-    private LedStrip _Lights;
+    private ILedGroup _Lights;
 
     @Override
-    public void Setup(LedStrip strip)
+    public void Setup(ILedGroup strip)
     {
         SetDelay(16 * 2);
-        
-        //if (Arguments.length > 0)
-        //    if (!Integer.TryParse(Arguments[0], out _TimeToRun))
-        //        _TimeToRun = TIME_INFINITE;
-        //_TimeToRun = 30000;
 
-        _Lights = strip;// new LedArray(strip, 0, 150);
+        _Lights = strip;
     }
 
     int offsetWave = 0;

@@ -5,13 +5,15 @@ import java.util.Random;
 import com.github.mbelling.ws281x.Color;
 import com.github.mbelling.ws281x.LedStrip;
 
+import us.shsrobotics.ledcode.utils.ILedGroup;
+
 class SuperRandomScript extends LedScript
 {
-    private LedStrip _Leds;
+    private ILedGroup _Leds;
     private Random _Rand;
 
     @Override
-    public void Setup(LedStrip strip)
+    public void Setup(ILedGroup strip)
     {
         SetDelay(32);
         _Rand = new Random();

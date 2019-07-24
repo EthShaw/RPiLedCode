@@ -1,16 +1,15 @@
 package us.shsrobotics.ledcode;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.github.mbelling.ws281x.Color;
-import com.github.mbelling.ws281x.LedStrip;
+
+import us.shsrobotics.ledcode.utils.ILedGroup;
 
 public class NumberedScript extends LedScript
 {
-    private LedStrip _LedStrip;
+    private ILedGroup _LedStrip;
     private List<Integer> leds;
 
     public NumberedScript(String numbers)
@@ -31,7 +30,7 @@ public class NumberedScript extends LedScript
     }
 
     @Override
-    public void Setup(LedStrip strip)
+    public void Setup(ILedGroup strip)
     {
         _LedStrip = strip;
         SetDelay(200);

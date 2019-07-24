@@ -7,6 +7,8 @@ import com.github.mbelling.ws281x.Ws281xLedStrip;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import us.shsrobotics.ledcode.utils.DirectLedGroup;
+import us.shsrobotics.ledcode.utils.ILedGroup;
 
 class Program {
 
@@ -58,6 +60,8 @@ class Program {
         LedStrip strip = new Ws281xLedStrip(150, 18, 800000, 10, 255, 0, false, 
             LedStripType.WS2811_STRIP_GRB, true);
 
+        ILedGroup ledGroup = new DirectLedGroup(strip);
+
         NetworkTableInstance nt = NetworkTableInstance.getDefault();
 
         nt.startClientTeam(5724);
@@ -89,7 +93,7 @@ class Program {
 
                 try {
                     script = getLedScript(lastScriptName, scriptArg);
-                    script.Setup(strip);
+                    script.Setup(ledGroup);
                 } catch(Exception e) {
                     Thread.sleep(200);
                     continue;

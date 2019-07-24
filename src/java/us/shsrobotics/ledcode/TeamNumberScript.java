@@ -8,9 +8,11 @@ import java.util.Map;
 import com.github.mbelling.ws281x.Color;
 import com.github.mbelling.ws281x.LedStrip;
 
+import us.shsrobotics.ledcode.utils.ILedGroup;
+
 public class TeamNumberScript extends LedScript
 {
-    private LedStrip _LedStrip;
+    private ILedGroup _LedStrip;
     private List<Integer> leds;
     private int[] TEAM_NUMBER = { 5, 7, 2, 4 };
 
@@ -33,7 +35,7 @@ public class TeamNumberScript extends LedScript
     }
 
     @Override
-    public void Setup(LedStrip strip)
+    public void Setup(ILedGroup strip)
     {
         _LedStrip = strip;
         SetDelay(200);

@@ -5,11 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.github.mbelling.ws281x.Color;
-import com.github.mbelling.ws281x.LedStrip;
+
+import us.shsrobotics.ledcode.utils.ILedGroup;
 
 public class MorseCode extends LedScript
 {
-    private LedStrip _LedStrip;
+    private ILedGroup _LedStrip;
     private Map<Character, String> _CodeMap;
     private String text;// = "WE ARE SPARTANS 5724";
     private ArrayList<Boolean> code = new ArrayList<Boolean>();
@@ -113,7 +114,7 @@ public class MorseCode extends LedScript
     }
 
     @Override
-    public void Setup(LedStrip strip)
+    public void Setup(ILedGroup strip)
     {
         _LedStrip = strip;
         SetDelay(200);

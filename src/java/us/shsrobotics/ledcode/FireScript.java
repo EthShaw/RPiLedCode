@@ -1,13 +1,14 @@
 package us.shsrobotics.ledcode;
 
 import com.github.mbelling.ws281x.Color;
-import com.github.mbelling.ws281x.LedStrip;
+
+import us.shsrobotics.ledcode.utils.ILedGroup;
 
 public class FireScript extends LedScript {
-    private LedStrip _Lights;
+    private ILedGroup _Lights;
 
     @Override
-    public void Setup(LedStrip parent) {
+    public void Setup(ILedGroup parent) {
         _Lights = parent;
         SetDelay(17);
     }

@@ -4,9 +4,11 @@ import com.github.mbelling.ws281x.Color;
 
 import com.github.mbelling.ws281x.LedStrip;
 
+import us.shsrobotics.ledcode.utils.ILedGroup;
+
 public class RandomChristmasScript extends LedScript
 {
-    private LedStrip _Lights;
+    private ILedGroup _Lights;
     private Color[] _Pixels;
     private static final int LENGTH = 150;
     private static final double BRIGHTNESS = 0.35;
@@ -14,7 +16,7 @@ public class RandomChristmasScript extends LedScript
     private static final Color RED = new Color(ColorUtils.ApplyBrightness(0xFF0000, BRIGHTNESS));
 
     @Override
-    public void Setup(LedStrip strip)
+    public void Setup(ILedGroup strip)
     {
         SetDelay(1000 / 2);
 

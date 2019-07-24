@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.github.mbelling.ws281x.Color;
-import com.github.mbelling.ws281x.LedStrip;
+
+import us.shsrobotics.ledcode.utils.ILedGroup;
 
 public class FillInScript extends LedScript
 {
-    private LedStrip _Lights;
+    private ILedGroup _Lights;
     private Color BG_COLOR = new Color(0x000007);
     private Color FG_COLOR = new Color(ColorUtils.ApplyBrightness(0xFFFFFF, 0.4));
     private boolean[] Pixels;
@@ -16,7 +17,7 @@ public class FillInScript extends LedScript
     private static final int LENGTH = 150;
 
     @Override
-    public void Setup(LedStrip strip)
+    public void Setup(ILedGroup strip)
     {
         SetDelay(250);
         _Lights = strip;
@@ -28,7 +29,6 @@ public class FillInScript extends LedScript
     @Override
     public void Update()
     {
-
         if (unfilledPixels.size() == 0) {
             for (int i = 0; i < Pixels.length; i++) {
                 unfilledPixels.add(i);
