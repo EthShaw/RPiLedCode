@@ -14,16 +14,15 @@ public class FillInScript extends LedScript
     private Color FG_COLOR = new Color(ColorUtils.ApplyBrightness(0xFFFFFF, 0.4));
     private boolean[] Pixels;
     private List<Integer> unfilledPixels;
-    private static final int LENGTH = 150;
 
     @Override
     public void Setup(ILedGroup strip)
     {
         SetDelay(250);
         _Lights = strip;
-        Pixels = new boolean[LENGTH];
+        Pixels = new boolean[_Lights.getLength()];
         
-        unfilledPixels = new ArrayList<Integer>(LENGTH);
+        unfilledPixels = new ArrayList<Integer>(_Lights.getLength());
     }
 
     @Override

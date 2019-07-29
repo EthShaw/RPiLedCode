@@ -23,7 +23,7 @@ public class ChristmasColorWaves extends TimedLedScript
     {
         super.Update();
 
-        for (int i = 0; i < 150; i++)
+        for (int i = 0; i < _Lights.getLength(); i++)
         {
             float x = i + offsetWave;
 

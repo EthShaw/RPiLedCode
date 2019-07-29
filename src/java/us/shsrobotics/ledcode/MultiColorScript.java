@@ -82,7 +82,7 @@ public class MultiColorScript extends TimedLedScript
     {
         super.Update();
 
-        for (int i = 0; i < 150; i++)
+        for (int i = 0; i < _Lights.getLength(); i++)
         {
             double adjustment = ADJUST_BRIGHTNESS ? ((i + (25 - (offset % 25))) % 25) / 38.4615385D + 0.35D : 1.0;
 

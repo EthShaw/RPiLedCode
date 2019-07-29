@@ -136,7 +136,7 @@ public class MorseCode extends LedScript
             _Display.add(0, 0x000000);
 
 
-        while (_Display.size() > 150)
+        while (_Display.size() > _LedStrip.getLength())
             _Display.remove(_Display.size() - 1);
 
 

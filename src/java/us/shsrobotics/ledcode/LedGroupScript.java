@@ -31,13 +31,13 @@ public class LedGroupScript extends LedScript
         int max_delay = 200;
 
         for (ScriptTrigger trigger : scriptTracking) {
-            long delay = System.currentTimeMillis() - trigger.lastRun;
+            long delay = trigger.script.GetDelay() - (System.currentTimeMillis() - trigger.lastRun);
             
             if (delay < max_delay) {
                 max_delay = (int)delay;
             }
 
-            if (delay >= trigger.script.GetDelay()) {
+            if (delay <= 0) {
                 trigger.script.Update();
                 trigger.lastRun = System.currentTimeMillis();
             }

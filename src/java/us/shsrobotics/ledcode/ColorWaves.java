@@ -29,7 +29,7 @@ public class ColorWaves extends TimedLedScript
     {
         super.Update();
 
-        for (int i = 0; i < 150; i++)
+        for (int i = 0; i < _Lights.getLength(); i++)
         {
             // Wavelength of 25, min of 0.35, max of 1 (created the wave on
             // Desmos to visualize it and then copied the function)

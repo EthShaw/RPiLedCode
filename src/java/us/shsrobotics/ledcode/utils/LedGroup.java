@@ -8,36 +8,35 @@ public class LedGroup implements ILedGroup
 {
     private int[] _Leds;
     private LedStrip _Strip;
-    private final int _Length;
 
     public LedGroup(LedStrip strip, int[] leds) {
-        _Length = leds.length;
-        _Leds = new int[_Length];
+        _Leds = new int[leds.length];
         _Strip = strip;
 
-        for (int i = 0; i < _Length; i++) {
+        for (int i = 0; i < leds.length; i++) {
             _Leds[i] = leds[i];
         }
     }
 
     public LedGroup(LedStrip strip, int start, int end, boolean reversed) {
         _Strip = strip;
-        if (start <= end) {
+        if (start >= end) {
             throw new InstantiationError("end must be greater than start for an LedGroup!");
         } else if (strip == null) {
             throw new IllegalArgumentException("strip cannot be null when initializing an LedGroup!");
         }
 
-        _Length = end - start;
-        _Leds = new int[_Length];
+        _Leds = new int[end - start];
 
         if (reversed) {
             for (int i = start; i < end; i++) {
-                _Leds[_Length - i - 1] = i;
+                int idx = i - start;
+                _Leds[_Leds.length - idx - 1] = i;
             }
         } else {
             for (int i = start; i < end; i++) {
-                _Leds[i - start] = i;
+                int idx = i - start;
+                _Leds[idx] = i;
             }
         }
     }
@@ -52,18 +51,18 @@ public class LedGroup implements ILedGroup
             return;
         }
 
-        _Strip.setPixel(pixel, color);
+        _Strip.setPixel(_Leds[pixel], color);
     }
 
     @Override
     public void setStrip(Color color) {
-        for (int i = 0; i < _Length; i++) {
-            _Strip.setPixel(i, color);
+        for (int i = 0; i < _Leds.length; i++) {
+            _Strip.setPixel(_Leds[i], color);
         }
     }
 
     @Override
     public int getLength() {
-        return _Length;
+        return _Leds.length;
     }
 }

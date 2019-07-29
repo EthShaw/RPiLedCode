@@ -147,7 +147,7 @@ public class BinaryScript extends LedScript
                 Color maroon = new Color(ColorUtils.ApplyBrightness(MAROON_HEX, brightness));
                 Color silver = new Color(ColorUtils.ApplyBrightness(SILVER_HEX, brightness));
 
-                for (int i = 0; i < 150; i++) {
+                for (int i = 0; i < _LedStrip.getLength(); i++) {
                     _LedStrip.setPixel(i, i % 2 == 0 ? maroon : silver);
                 }
             } else {
@@ -173,7 +173,7 @@ public class BinaryScript extends LedScript
                 _Display.add(0, null);
 
 
-            while (_Display.size() > 150)
+            while (_Display.size() > _LedStrip.getLength())
                 _Display.remove(_Display.size() - 1);
 
 

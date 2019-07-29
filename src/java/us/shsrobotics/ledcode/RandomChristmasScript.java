@@ -10,7 +10,6 @@ public class RandomChristmasScript extends LedScript
 {
     private ILedGroup _Lights;
     private Color[] _Pixels;
-    private static final int LENGTH = 150;
     private static final double BRIGHTNESS = 0.35;
     private static final Color GREEN = new Color(ColorUtils.ApplyBrightness(0x00FF00, BRIGHTNESS));
     private static final Color RED = new Color(ColorUtils.ApplyBrightness(0xFF0000, BRIGHTNESS));
@@ -21,7 +20,7 @@ public class RandomChristmasScript extends LedScript
         SetDelay(1000 / 2);
 
         _Lights = strip;
-        _Pixels = new Color[LENGTH];
+        _Pixels = new Color[strip.getLength()];
 
         for (int i = 0; i < _Pixels.length; i++) {
             _Pixels[i] = Math.random() < 0.5 ? GREEN : RED;
