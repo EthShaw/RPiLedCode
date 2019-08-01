@@ -32,14 +32,15 @@ public class LedGroupScript extends LedScript
 
         for (ScriptTrigger trigger : scriptTracking) {
             long delay = trigger.script.GetDelay() - (System.currentTimeMillis() - trigger.lastRun);
-            
-            if (delay < max_delay) {
-                max_delay = (int)delay;
-            }
 
             if (delay <= 0) {
                 trigger.script.Update();
                 trigger.lastRun = System.currentTimeMillis();
+                delay = trigger.script.GetDelay();
+            }
+            
+            if (delay < max_delay) {
+                max_delay = (int)delay;
             }
         }
 

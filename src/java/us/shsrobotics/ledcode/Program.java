@@ -158,7 +158,9 @@ class Program {
 
             script.Update();
             _Lights.render();
-            Thread.sleep(script.GetDelay());
+            // Minimum Thread.sleep of 1 millisecond because if _Lights.render
+            // gets called more often then that, it can create flickering issues.
+            Thread.sleep(Math.max(1, script.GetDelay()));
         }
     }
 }
