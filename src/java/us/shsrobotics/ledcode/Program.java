@@ -60,6 +60,8 @@ class Program {
                 return new FillInScript();
             case "teamnumber":
                 return new TeamNumberScript();
+            case "rsl":
+                return new RSLScript();
             case "superrandomscript":
                 return new SuperRandomScript();
             case "morsecode":
