@@ -10,6 +10,7 @@ import us.shsrobotics.ledcode.utils.ILedGroup;
 public class RSLScript extends LedScript {
     private ILedGroup _Lights;
     private boolean _State = true;
+    private Color _Orange = new Color(0xF03700);
 
     @Override
     public void Setup(ILedGroup strip) {
@@ -21,7 +22,7 @@ public class RSLScript extends LedScript {
     @Override
     public void Update() {
         if (_State) {
-            _Lights.setStrip(Color.ORANGE);
+            _Lights.setStrip(_Orange);
         } else {
             _Lights.setStrip(Color.BLACK);
         }
