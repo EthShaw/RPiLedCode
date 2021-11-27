@@ -2,23 +2,45 @@ package us.shsrobotics.ledcode;
 
 import com.github.mbelling.ws281x.Color;
 
+import org.json.JSONObject;
+
 import us.shsrobotics.ledcode.utils.ILedGroup;
 
-public class ColorWaves extends TimedLedScript
+public class ColorWaves extends LedScript
 {
     private ILedGroup _Lights;
+    private boolean _IsMultiColor = true;
+    private double _Hue = 0;
+
+    public ColorWaves(String args)
+    {
+        if (args == null) {
+            args = "";
+        }
+
+        JSONObject obj = ArgumentHelper.parseArguments(args);
+
+        if (obj != null && obj.has("hue")) {
+            String s = obj.get("hue").toString();
+
+            if (s != null) {
+                try {
+                    double color = Double.parseDouble(s);
+                    _IsMultiColor = false;
+                    _Hue = color;
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     @Override
     public void Setup(ILedGroup strip)
     {
         SetDelay(16 * 2);
-        
-        //if (Arguments.length > 0)
-        //    if (!Integer.TryParse(Arguments[0], out _TimeToRun))
-        //        _TimeToRun = TIME_INFINITE;
-        _TimeToRun = 30000;
 
-        _Lights = strip;// new LedArray(strip, 0, 150);
+        _Lights = strip;
     }
 
     int offsetWave = 0;
@@ -27,19 +49,27 @@ public class ColorWaves extends TimedLedScript
     @Override
     public void Update()
     {
-        super.Update();
-
         for (int i = 0; i < _Lights.getLength(); i++)
         {
             // Wavelength of 25, min of 0.35, max of 1 (created the wave on
             // Desmos to visualize it and then copied the function)
             double adjustment = Math.sin(0.251327412 * (i + offsetWave)) * 0.325 + 0.675;
 
-            _Lights.setPixel(i, new Color(ColorUtils.ApplyBrightness(
-                ColorUtils.HSL2RGB(offsetColor / 150D,
-                adjustment,
-                0.5),
-                0.5)));
+            double hue;
+
+            if (_IsMultiColor) {
+                hue = offsetColor / 150D;
+            } else {
+                hue = _Hue;
+            }
+            
+            Color color = new Color(ColorUtils.ApplyBrightness(
+                        ColorUtils.HSL2RGB(hue,
+                            adjustment,
+                            0.5),
+                        0.5));;
+
+            _Lights.setPixel(i, color);
         }
 
         offsetWave++;

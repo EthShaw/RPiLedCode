@@ -53,13 +53,17 @@ class Program {
             // Because to .toLowerCase the name, all of the following
             // MUST be in lowercase for them to ever be picked.
             case "colorwaves":
-                return new ColorWaves();
+                return new ColorWaves(argument);
             case "binary":
                 return new BinaryScript(argument);
             case "fillin":
                 return new FillInScript();
             case "teamnumber":
                 return new TeamNumberScript();
+            case "rsl":
+                return new RSLScript();
+            case "assign":
+                return new AssignmentScript(argument);
             case "superrandomscript":
                 return new SuperRandomScript();
             case "morsecode":
@@ -158,7 +162,9 @@ class Program {
 
             script.Update();
             _Lights.render();
-            Thread.sleep(script.GetDelay());
+            // Minimum Thread.sleep of 1 millisecond because if _Lights.render
+            // gets called more often then that, it can create flickering issues.
+            Thread.sleep(Math.max(1, script.GetDelay()));
         }
     }
 }
